@@ -1,13 +1,34 @@
 package com.itb.mif3an.academicologin.service;
 
-import com.itb.mif3an.academicologin.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.itb.mif3an.academicologin.model.User;
+import com.itb.mif3an.academicologin.repository.UserRepository;
+import com.itb.mif3an.academicologin.web.dto.UserDto;
+
+@Service
 public class UserServiceImpl implements UserService{
 
+	@Autowired
+	private UserRepository userRepository;
+	
 	@Override
-	public User fingByEmail(String email) {
+	public User findByEmail(String email) {
 		
 		return null;
+	}
+
+	@Override
+	public User save(UserDto userDto) {
+		
+		User user = new User(userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), userDto.getPassword());
+			
+		
+		
+				
+		// TODO Auto-generated method stub
+		return userRepository.save(user);
 	}
 
 	
