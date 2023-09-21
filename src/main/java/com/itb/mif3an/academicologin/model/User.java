@@ -1,5 +1,6 @@
 package com.itb.mif3an.academicologin.model;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class User {
 	private String lastName;
 	private String email;
 	private String password;
+	private LocalDate dataNascimento;
 	
 	 //1:N
 	@OneToMany //Um usuários para muitos endereços
@@ -147,6 +149,14 @@ public class User {
 
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 	
 }

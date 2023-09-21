@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -100,4 +101,20 @@ public class UserServiceImpl implements UserService{
 		return roleRepository.save(role);
 	}
 
+	@Override
+	public User getAuthenticatedUser() {
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if(principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}else {
+			username = principal.toString();
+		}
+		User user = userRepository.findByEmail(username);
+		
+		return user;
+		}
+
+		
 }
