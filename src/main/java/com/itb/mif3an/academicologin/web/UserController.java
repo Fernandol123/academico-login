@@ -37,6 +37,7 @@ public class UserController {
 		return home;
 	}
 	
+	@GetMapping("/users/perfil/{username}")
 	public String showPerfilForm(@PathVariable("username") String username, ModelMap model) {
  UserDto userDto = new UserDto();
  userDto.setEmail(username);
