@@ -1,5 +1,6 @@
 package com.itb.mif3an.academicologin.web.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.itb.mif3an.academicologin.model.Endereco;
@@ -11,6 +12,7 @@ public class UserDto {
 	private String lastName;
 	private String email;
 	private String password;
+	private LocalDate dateNascimento;
 	
 	private List<Endereco> enderecos;
 	
@@ -66,6 +68,18 @@ public class UserDto {
 		this.password = password;
 	}
 
+	
+	
+	
+	public LocalDate getDateNascimento() {
+		return dateNascimento;
+	}
+
+	public void setDateNascimento(LocalDate dateNascimento) {
+		this.dateNascimento = dateNascimento;
+	}
+
+	
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
