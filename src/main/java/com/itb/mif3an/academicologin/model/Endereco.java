@@ -63,6 +63,12 @@ public class Endereco {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
    
 	

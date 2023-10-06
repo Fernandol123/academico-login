@@ -56,6 +56,9 @@ public class User {
 	)
 	private Collection<Role> roles;
 	
+	
+	
+	
 	//Construtor padrão: No possui parâmetros
 	
 	public User() {

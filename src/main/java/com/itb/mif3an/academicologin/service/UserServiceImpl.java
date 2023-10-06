@@ -3,6 +3,7 @@ package com.itb.mif3an.academicologin.service;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.itb.mif3an.academicologin.model.Endereco;
 import com.itb.mif3an.academicologin.model.Role;
 import com.itb.mif3an.academicologin.model.User;
 import com.itb.mif3an.academicologin.repository.RoleRepository;
@@ -50,9 +52,17 @@ public class UserServiceImpl implements UserService{
 	             userDto.getLastName(), 
 	             userDto.getEmail(), 
 	             passwordEncoder.encode(userDto.getPassword()),
-	             new ArrayList<>(),
-	             
 	             new ArrayList<>());
+	            
+	             
+	   List<Endereco> enderecos = new ArrayList<>();
+	   Endereco endereco = new Endereco();
+	   //Relacionamento entre endereço e user
+	   endereco.setUser(user);
+	   enderecos.add(endereco);
+	   //Relacionamento entre user e endereços (array)
+	   user.setEnderecos(enderecos);
+		
  userRepository.save(user);
  this.addRoleToUser(user.getEmail(), "ROLE_USER");
  return user;
@@ -122,11 +132,24 @@ public class UserServiceImpl implements UserService{
 	public User update(UserDto userDto) {
 		
 		User user = userRepository.findByEmail(userDto.getEmail());
-		user.setFirstName(user.getFirstName());
+		//Buscar o endereço
+		Endereco enderecoBd = user.getEnderecos().get(0);
+		enderecoBd.setCep(userDto.getEnderecos().get(0).getCep());
+		//logradouro, bairro, cidade, uf
+		enderecoBd.setLogradouro(userDto.getEnderecos().get(0).getLogradouro());
+		enderecoBd.setBairro(userDto.getEnderecos().get(0).getBairro());
+		enderecoBd.setCidade(userDto.getEnderecos().get(0).getCidade());
+		enderecoBd.setUf(userDto.getEnderecos().get(0).getUf());
+		
+		//outros dados do usuario
+		
+		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
-		user.setDataNascimento(userDto.getDateNascimento());
-		user.setEnderecos(userDto.getEnderecos());
-		return null;
+		user.setDataNascimento(userDto.getDataNascimento());
+		
+		
+		
+		return userRepository.save(user);
 	}
 
 		

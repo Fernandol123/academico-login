@@ -12,7 +12,7 @@ public class UserDto {
 	private String lastName;
 	private String email;
 	private String password;
-	private LocalDate dateNascimento;
+	private LocalDate dataNascimento;
 	
 	private List<Endereco> enderecos;
 	
@@ -71,14 +71,6 @@ public class UserDto {
 	
 	
 	
-	public LocalDate getDateNascimento() {
-		return dateNascimento;
-	}
-
-	public void setDateNascimento(LocalDate dateNascimento) {
-		this.dateNascimento = dateNascimento;
-	}
-
 	
 	public List<Endereco> getEnderecos() {
 		return enderecos;
@@ -95,5 +87,13 @@ public class UserDto {
 		this.email = email;
 		this.password = password;
 		this.enderecos = enderecos;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 }
