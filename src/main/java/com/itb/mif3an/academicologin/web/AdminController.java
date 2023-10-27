@@ -30,4 +30,10 @@ public class AdminController {
 		model.addAttribute("username" , username);
 		return home;
 	}
+	
+	@GetMapping("/usuarios/todos-usuarios")
+	public String showUsuarios(Model model) {
+		
+		return "";
+	}
 }

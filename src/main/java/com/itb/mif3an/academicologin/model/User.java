@@ -45,6 +45,9 @@ public class User {
 	private LocalDate dataNascimento;
 	private String principalRole;
 	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Tarefa> tarefas = new ArrayList<Tarefa>();
+	
 	 //1:N
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)//Um usuários para muitos endereços	
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
