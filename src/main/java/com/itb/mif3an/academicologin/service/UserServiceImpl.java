@@ -168,9 +168,16 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<Role> findAllRoles() {
-		// TODO Auto-generated method stub
+		
 		return roleRepository.findAll();
 	}
 
+	@Override
+	public User findUserById(Long id) {
 		
-}
+		return userRepository.findById(id).get(); 
+		};
+	}
+
+		
+

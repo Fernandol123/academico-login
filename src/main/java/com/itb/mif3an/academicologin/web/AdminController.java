@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itb.mif3an.academicologin.model.Role;
 import com.itb.mif3an.academicologin.model.User;
 import com.itb.mif3an.academicologin.service.UserService;
+import com.itb.mif3an.academicologin.web.dto.UserDto;
 
 
 
@@ -56,10 +59,21 @@ public class AdminController {
 		
 		String username = user.getEmail();
 		
-		//User userDb = userService.fi
-		return "";
+		User userDb = userService.findUserById(id);
 		
+		model.addAttribute("usuario", userDb);
+		model.addAttribute("allRoles", roles);
+		model.addAttribute("username", username);
 		
+		return "update_usuario";
+				
+	}
+	
+	@PostMapping("/usuarios/update-principal-role/{id}")
+	public String updatePrincipalRoleUser(@ModelAttribute("user") UserDto userDto,
+			                              @PathVariable("id" Lomg id,)Model model,
+			                              @RequestParam(value = "roleName" , required=false)) {
 		
+		return";
 	}
 }
