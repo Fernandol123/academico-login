@@ -64,7 +64,9 @@ public class UserServiceImpl implements UserService{
 	   user.setEnderecos(enderecos);
 		
  userRepository.save(user);
+ user.setPrincipalRole("ROLE_USER");
  this.addRoleToUser(user.getEmail(), "ROLE_USER");
+ 
  return user;
 
 		
@@ -150,6 +152,24 @@ public class UserServiceImpl implements UserService{
 		
 		
 		return userRepository.save(user);
+	}
+
+	@Override
+	public List<User> findAllUsersByExceptPrincipalRole(String principalRole) {
+		
+		return userRepository.findAllUsersByExceptPrincipalRole(principalRole);
+	}
+
+	@Override
+	public User saveUser(User user) {
+		
+		return userRepository.save(user);
+	}
+
+	@Override
+	public List<Role> findAllRoles() {
+		// TODO Auto-generated method stub
+		return roleRepository.findAll();
 	}
 
 		

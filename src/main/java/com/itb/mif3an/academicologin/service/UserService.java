@@ -1,5 +1,7 @@
 package com.itb.mif3an.academicologin.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,5 +20,8 @@ public interface UserService extends UserDetailsService{
 	Role saveRole(Role role);
 
 	User getAuthenticatedUser();
-	
+	List<User> findAllUsersByExceptPrincipalRole(String principalRole);
+	User saveUser(User user);
+	List<Role> findAllRoles();
+	User findUserById(Long id);
 }

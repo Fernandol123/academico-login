@@ -27,4 +27,10 @@ public class TarefaServiceImpl implements TarefaService {
 		return  tarefaRepository.findAll();
 	}
 
+	@Override
+	public List<Tarefa> findTarefasByIdUser(Long idUsuario) {
+		// TODO Auto-generated method stub
+		return tarefaRepository.findTarefasByIdUser(idUsuario);
+	}
+
 }
