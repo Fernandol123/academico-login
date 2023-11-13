@@ -2,6 +2,7 @@ package com.itb.mif3an.academicologin.web;
 
 import java.util.List;
 
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itb.mif3an.academicologin.model.Role;
 import com.itb.mif3an.academicologin.model.User;
+import com.itb.mif3an.academicologin.repository.RoleRepository;
 import com.itb.mif3an.academicologin.service.UserService;
 import com.itb.mif3an.academicologin.web.dto.UserDto;
 
@@ -29,6 +32,8 @@ public class AdminController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	@GetMapping("/home")
 	public String homeAdmin(Model model) {
@@ -52,7 +57,7 @@ public class AdminController {
 		return "lista-usuarios-admin";
 	}
 	
-	@GetMapping
+	@GetMapping()
 	public String showUpdateFormUser(@PathVariable("id") Long id, Model model) {
 		User user = userService.getAuthenticatedUser();
 		List<Role> roles = userService.findAllRoles();
@@ -71,9 +76,31 @@ public class AdminController {
 	
 	@PostMapping("/usuarios/update-principal-role/{id}")
 	public String updatePrincipalRoleUser(@ModelAttribute("user") UserDto userDto,
-			                              @PathVariable("id" Lomg id,)Model model,
-			                              @RequestParam(value = "roleName" , required=false)) {
+			                              @PathVariable("id") Long id, Model model,
+			                              @RequestParam(value = "roleName" , required = false) String roleName) {
 		
-		return";
+		User user = userService.getAuthenticatedUser();
+		String username = user.getEmail();
+		User userDb = userService.findUserById(id);
+		java.util.Collection<Role> rolesUser = userDb.getRoles();
+		
+		Role role = roleRepository.findByName(roleName);
+		
+		//se o papel principal for ROLE_USER
+		
+		if(role.getName().equals("ROLEUSER")) {
+			rolesUser.removeAll(rolesUser);
+			rolesUser.add(role);
+		}
+		if(!rolesUser.contains(role)) {
+			rolesUser.add(role);
+		}
+		
+		userDb.setPrincipalRole(roleName);
+		
+		userService.saveUser(userDb);
+		model.addAttribute("username",username);
+		
+ 		return "redirect:/admin/usuarios/todos-usuarios";
 	}
 }
