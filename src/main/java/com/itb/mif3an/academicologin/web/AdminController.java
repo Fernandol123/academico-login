@@ -86,7 +86,7 @@ public class AdminController {
 		
 		Role role = roleRepository.findByName(roleName);
 		
-		//se o papel principal for ROLE_USER
+		//se o papel principal for ROLE_USER, entao o usuario so pode ser role_user nao terá nenhum outro papel
 		
 		if(role.getName().equals("ROLEUSER")) {
 			rolesUser.removeAll(rolesUser);
